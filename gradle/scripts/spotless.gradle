@@ -1,5 +1,7 @@
 spotless {
     encoding 'UTF-8'
+    // Check the NL changes without reformatting unrelated community-port sources.
+    ratchetFrom '7e07b3d165b0c50eee82ab0f286edff74422beb5'
 
     format 'misc', {
         target '.gitignore'
@@ -15,8 +17,8 @@ spotless {
         def formatFile = file("$rootDir/gradle/spotless/spotless.eclipseformat.xml")
         toggleOffOn()
         importOrderFile(orderFile)
-        removeUnusedImports('cleanthat-javaparser-unnecessaryimport')
+        // The inherited JavaParser import cleaner cannot parse Java 25 flexible constructors.
         endWithNewline()
-        eclipse('4.36').configFile(formatFile)
+        eclipse('4.38').configFile(formatFile).configProperties('org.eclipse.jdt.core.compiler.source=25', 'org.eclipse.jdt.core.compiler.compliance=25', 'org.eclipse.jdt.core.compiler.codegen.targetPlatform=25')
     }
 }

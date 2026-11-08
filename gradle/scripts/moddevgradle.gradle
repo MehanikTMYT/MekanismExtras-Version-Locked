@@ -51,10 +51,11 @@ neoForge {
             sourceSet = sourceSets.extra
             ideName = "Server"
 
-            gameDirectory.set(file('run/server'))
+            gameDirectory.set(file('/root/home/agent-work/mekanism-port-queue/build/mekanism-extras/server'))
             programArguments.addAll('--nogui', '--world', 'world-extra')
             systemProperty('neoforge.enabledGameTestNamespaces', project.mod_id)
             if (providers.gradleProperty('heaterSmoke').isPresent()) systemProperty 'mekextras.heaterSmoke', 'true'
+            if (providers.gradleProperty('extrasSmoke').isPresent()) systemProperty 'mekextras.extrasSmoke', 'true'
             if (providers.gradleProperty('reactorSmoke').isPresent()) systemProperty 'mekextras.reactorSmoke', 'true'
         }
 

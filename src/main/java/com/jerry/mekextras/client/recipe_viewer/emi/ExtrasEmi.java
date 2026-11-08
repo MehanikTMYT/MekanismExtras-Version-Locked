@@ -9,12 +9,11 @@ import com.jerry.mekextras.common.registries.ExtraItems;
 import com.jerry.genextras.common.GenExtraLang;
 import com.jerry.genextras.common.registries.GenExtraFluids;
 
-import dev.emi.emi.api.stack.Comparison;
-
 import dev.emi.emi.api.EmiEntrypoint;
 import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.recipe.EmiInfoRecipe;
+import dev.emi.emi.api.stack.Comparison;
 import dev.emi.emi.api.stack.EmiStack;
 
 import java.util.List;
@@ -40,15 +39,9 @@ public class ExtrasEmi implements EmiPlugin {
                     GenExtraLang.RECIPE_VIEWER_INFO_POLONIUM_CONTAINING_SOLUTION.translate()), MekanismExtras.rl("info/polonium_containing_solution")));
         }
     }
-    // The optional EMI API still names Identifier ResourceLocation on its legacy compile artifact.
-    // Resolve the constructor by runtime types so this integration can follow the viewer's port.
+
     private static dev.emi.emi.api.recipe.EmiRecipe infoRecipe(List<EmiStack> stacks,
-          List<net.minecraft.network.chat.Component> text, net.minecraft.resources.Identifier id) {
-        try {
-            return (dev.emi.emi.api.recipe.EmiRecipe) EmiInfoRecipe.class
-                .getConstructor(List.class, List.class, id.getClass()).newInstance(stacks, text, id);
-        } catch (ReflectiveOperationException exception) {
-            throw new IllegalStateException("EMI must support this Minecraft version", exception);
-        }
+                                                               List<net.minecraft.network.chat.Component> text, net.minecraft.resources.Identifier id) {
+        return new EmiInfoRecipe(new java.util.ArrayList<dev.emi.emi.api.stack.EmiIngredient>(stacks), text, id);
     }
 }

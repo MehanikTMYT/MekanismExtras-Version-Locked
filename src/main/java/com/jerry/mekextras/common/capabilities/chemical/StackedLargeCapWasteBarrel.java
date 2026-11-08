@@ -3,13 +3,10 @@ package com.jerry.mekextras.common.capabilities.chemical;
 import com.jerry.mekextras.common.capabilities.chemical.variable.ExtraVariableCapacityChemicalTank;
 import com.jerry.mekextras.common.tile.TileEntityLargeCapRadioactiveWasteBarrel;
 
-import mekanism.api.Action;
 import mekanism.api.AutomationType;
 import mekanism.api.IContentsListener;
-import org.jspecify.annotations.NullMarked;
 import mekanism.api.chemical.Chemical;
 import mekanism.api.chemical.ChemicalStack;
-import mekanism.api.chemical.IChemicalHandler;
 import mekanism.api.chemical.IChemicalTank;
 import mekanism.api.chemical.attribute.ChemicalAttributeValidator;
 import mekanism.api.datamaps.chemical.attribute.ChemicalRadioactivity;
@@ -18,6 +15,7 @@ import mekanism.api.functions.ConstantPredicates;
 import mekanism.common.util.WorldUtils;
 
 import org.jetbrains.annotations.Nullable;
+import org.jspecify.annotations.NullMarked;
 
 import java.util.Objects;
 

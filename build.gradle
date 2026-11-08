@@ -87,3 +87,26 @@ if (!providers.gradleProperty("reactorSmoke").isPresent()) sourceSets.test.java.
 if (!providers.gradleProperty("guideClientSmoke").isPresent()) sourceSets.test.java.exclude("**/GuideClientSmoke.java")
 // These fixtures execute inside Minecraft, rather than as JUnit tests.
 tasks.withType(Test).configureEach { failOnNoDiscoveredTests = false }
+
+// Fail the Gradle run if a functional assertion failed even though Minecraft stopped cleanly.
+tasks.named('runServer') {
+    if (providers.gradleProperty('heaterSmoke').isPresent()) {
+        def resultFile = file('/root/home/agent-work/mekanism-port-queue/build/mekanism-extras/server/heater-smoke-result.txt')
+        doFirst { delete resultFile }
+        doLast {
+            if (!resultFile.exists() || resultFile.text.trim() != 'PASS') {
+                throw new GradleException('Extras heater functional smoke failed; inspect the server log')
+            }
+        }
+    }
+    if (providers.gradleProperty('extrasSmoke').isPresent()) {
+        def resultFile = file('/root/home/agent-work/mekanism-port-queue/build/mekanism-extras/server/extras-qa-result.txt')
+        doFirst { delete resultFile }
+        doLast {
+            // PHASE1 = registration + transfer finished; PASS = restart persistence phase done.
+            if (!resultFile.exists() || !(resultFile.text.trim() in ['PHASE1', 'PASS'])) {
+                throw new GradleException('Extras energy smoke failed; inspect the server log')
+            }
+        }
+    }
+}

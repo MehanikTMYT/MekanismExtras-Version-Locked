@@ -22,7 +22,8 @@ base {
 }
 
 tasks.named('jar', Jar) {
-    archiveClassifier = 'atm11-0.9.0'
+    archiveClassifier = ''
+    from('LICENSE') { into 'META-INF' }
 }
 
 afterEvaluate {

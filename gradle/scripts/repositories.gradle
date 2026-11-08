@@ -35,10 +35,6 @@ repositories {
             includeGroup("dev.architectury")
         }
     }
-    exclusiveContent { // terraformers - EMI
-        forRepository { maven { url = "https://maven.terraformersmc.com/releases/" } }
-        filter { includeGroup("dev.emi") }
-    }
     exclusiveContent { // KotlinForForge
         forRepository { maven { url = "https://thedarkcolour.github.io/KotlinForForge/" } }
         filter { includeGroup("thedarkcolour") }
